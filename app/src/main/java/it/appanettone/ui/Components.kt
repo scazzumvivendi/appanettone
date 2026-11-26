@@ -78,14 +78,15 @@ fun AppHeader(currentPage: Page, onSettings: () -> Unit, onArchive: () -> Unit, 
                                 onPanettoni()
                             },
                         )}
-                    DropdownMenuItem(
-                        text = { Text("Impostazioni") },
-                        onClick = {
-                            menuOpen = false
-                            onSettings()
-                        },
-                    )
-
+                    if (menuPage != Page.Settings) {
+                        DropdownMenuItem(
+                            text = { Text("Impostazioni") },
+                            onClick = {
+                                menuOpen = false
+                                onSettings()
+                            },
+                        )
+                    }
                 }
             }
         },
