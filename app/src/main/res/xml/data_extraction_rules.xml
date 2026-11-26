@@ -1,0 +1,10 @@
+<data-extraction-rules>
+    <cloud-backup>
+        <include domain="database" path="." />
+        <include domain="sharedpref" path="batch_archive.xml" />
+    </cloud-backup>
+    <device-transfer>
+        <include domain="database" path="." />
+        <include domain="sharedpref" path="batch_archive.xml" />
+    </device-transfer>
+</data-extraction-rules>

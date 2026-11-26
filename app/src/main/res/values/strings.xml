@@ -1,0 +1,6 @@
+<resources>
+    <plurals name="reminder_minutes">
+        <item quantity="one">Manca %1$d minuto alla fine di %2$s.</item>
+        <item quantity="other">Mancano %1$d minuti alla fine di %2$s.</item>
+    </plurals>
+</resources>
