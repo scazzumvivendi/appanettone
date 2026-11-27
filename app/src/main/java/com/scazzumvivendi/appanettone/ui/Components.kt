@@ -1,4 +1,4 @@
-package it.appanettone.ui
+package com.scazzumvivendi.appanettone.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -34,22 +34,37 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import it.appanettone.R
-import it.appanettone.data.PhaseColor
-import it.appanettone.ui.Page
+import com.scazzumvivendi.appanettone.R
+import com.scazzumvivendi.appanettone.data.PhaseColor
+import com.scazzumvivendi.appanettone.ui.Page
+
+private val monochromeLogo = ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(0f) })
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppHeader(currentPage: Page, onSettings: () -> Unit, onArchive: () -> Unit, onPanettoni: () -> Unit) {
+fun AppHeader(
+    currentPage: Page,
+    isSupporter: Boolean,
+    onSettings: () -> Unit,
+    onArchive: () -> Unit,
+    onPanettoni: () -> Unit,
+) {
     var menuOpen by remember { mutableStateOf(false) }
     var menuPage by remember { mutableStateOf(currentPage) }
     TopAppBar(
         title = {
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp), verticalAlignment = Alignment.CenterVertically) {
-                Image(painterResource(R.drawable.panettone), null, Modifier.size(34.dp).clip(RoundedCornerShape(9.dp)))
+                Image(
+                    painter = painterResource(R.drawable.panettone),
+                    contentDescription = null,
+                    modifier = Modifier.size(34.dp).clip(RoundedCornerShape(9.dp)),
+                    colorFilter = if (isSupporter) null else monochromeLogo,
+                )
                 Text("Appanettone", maxLines = 1, overflow = TextOverflow.Ellipsis)
             }
         },

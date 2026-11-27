@@ -1,4 +1,4 @@
-package it.appanettone.ui
+package com.scazzumvivendi.appanettone.ui
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.AlertDialog

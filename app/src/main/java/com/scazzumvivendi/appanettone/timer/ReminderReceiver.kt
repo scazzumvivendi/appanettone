@@ -1,10 +1,10 @@
-package it.appanettone.timer
+package com.scazzumvivendi.appanettone.timer
 
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.util.Log
-import it.appanettone.AppanettoneApplication
+import com.scazzumvivendi.appanettone.AppanettoneApplication
 import kotlinx.coroutines.launch
 
 class ReminderReceiver : BroadcastReceiver() {

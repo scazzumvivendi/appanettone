@@ -1,4 +1,4 @@
-package it.appanettone.data
+package com.scazzumvivendi.appanettone.data
 
 import android.content.SharedPreferences
 import kotlinx.coroutines.Dispatchers

@@ -3,3 +3,8 @@
 .idea/
 **/build/
 local.properties
+/.signing/
+*.jks
+*.keystore
+*.p12
+/app/release/app-release.aab

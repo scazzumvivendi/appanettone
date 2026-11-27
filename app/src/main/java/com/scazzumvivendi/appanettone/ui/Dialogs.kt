@@ -1,4 +1,4 @@
-package it.appanettone.ui
+package com.scazzumvivendi.appanettone.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,7 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import it.appanettone.data.PhaseTemplate
+import com.scazzumvivendi.appanettone.data.PhaseTemplate
 
 @Composable
 fun NameDialog(title: String, onDismiss: () -> Unit, onSave: (String) -> Unit) {

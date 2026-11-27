@@ -1,11 +1,11 @@
-package it.appanettone
+package com.scazzumvivendi.appanettone
 
 import android.app.Application
 import androidx.room.Room
-import it.appanettone.data.AppDatabase
-import it.appanettone.data.AppRepository
-import it.appanettone.data.BatchArchive
-import it.appanettone.timer.ReminderScheduler
+import com.scazzumvivendi.appanettone.data.AppDatabase
+import com.scazzumvivendi.appanettone.data.AppRepository
+import com.scazzumvivendi.appanettone.data.BatchArchive
+import com.scazzumvivendi.appanettone.timer.ReminderScheduler
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob

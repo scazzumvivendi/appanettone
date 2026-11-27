@@ -1,4 +1,4 @@
-package it.appanettone.data
+package com.scazzumvivendi.appanettone.data
 
 /** Returns only the phases whose recorded times need updating. */
 internal fun Batch.advancePhases(now: Long, manualPhaseId: Long? = null): List<Phase> = buildList {

@@ -1,4 +1,4 @@
-package it.appanettone.ui
+package com.scazzumvivendi.appanettone.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -36,9 +36,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import it.appanettone.data.Batch
-import it.appanettone.data.Phase
-import it.appanettone.data.ScheduledPhase
+import com.scazzumvivendi.appanettone.data.Batch
+import com.scazzumvivendi.appanettone.data.Phase
+import com.scazzumvivendi.appanettone.data.ScheduledPhase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 

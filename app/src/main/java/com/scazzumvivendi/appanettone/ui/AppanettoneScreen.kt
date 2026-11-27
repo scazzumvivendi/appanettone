@@ -1,4 +1,4 @@
-package it.appanettone.ui
+package com.scazzumvivendi.appanettone.ui
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
@@ -24,7 +24,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import it.appanettone.data.AppRepository
+import com.scazzumvivendi.appanettone.SupporterState
+import com.scazzumvivendi.appanettone.data.AppRepository
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.delay
@@ -36,6 +37,9 @@ private enum class Dialog { Batch, ArchiveBatch, Template, RemoveTemplate }
 @Composable
 fun AppanettoneScreen(
     repository: AppRepository,
+    supporter: SupporterState,
+    onBecomeSupporter: () -> Unit,
+    onRefreshSupporter: () -> Unit,
     notificationDestination: Long?,
     consumeNotificationDestination: () -> Unit,
     notificationsAllowed: Boolean,
@@ -109,7 +113,13 @@ fun AppanettoneScreen(
 
     Scaffold(
         topBar = {
-            AppHeader(currentPage = page, onSettings = { page = Page.Settings }, onArchive = { page = Page.Archive },  onPanettoni = { page = Page.Batches })
+            AppHeader(
+                currentPage = page,
+                isSupporter = supporter.owned,
+                onSettings = { page = Page.Settings },
+                onArchive = { page = Page.Archive },
+                onPanettoni = { page = Page.Batches },
+            )
         },
         snackbarHost = { SnackbarHost(snackbar) },
         floatingActionButton = {
@@ -126,6 +136,9 @@ fun AppanettoneScreen(
                 batches == null || preferences == null -> CircularProgressIndicator(Modifier.align(Alignment.Center))
                 page == Page.Settings -> SettingsScreen(
                     templates = templates,
+                    supporter = supporter,
+                    onBecomeSupporter = onBecomeSupporter,
+                    onRefreshSupporter = onRefreshSupporter,
                     reminders = preferences?.reminders == true,
                     notificationsAllowed = notificationsAllowed,
                     exactAlarmsAllowed = exactAlarmsAllowed,

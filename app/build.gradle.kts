@@ -5,15 +5,15 @@ plugins {
 }
 
 android {
-    namespace = "it.appanettone"
+    namespace = "com.scazzumvivendi.appanettone"
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "it.appanettone"
+        applicationId = "com.scazzumvivendi.appanettone"
         minSdk = 26
         targetSdk = 37
-        versionCode = 2
-        versionName = "1.1"
+        versionCode = 1
+        versionName = "0.0.1"
     }
 
     buildFeatures { compose = true }
@@ -22,6 +22,12 @@ android {
 ksp { arg("room.schemaLocation", "$projectDir/schemas") }
 
 dependencies {
+    implementation("com.android.billingclient:billing:8.3.0")
+    constraints {
+        implementation("androidx.fragment:fragment:1.3.6") {
+            because("Play Billing brings in an older Fragment version incompatible with Activity Result APIs")
+        }
+    }
     implementation(platform("androidx.compose:compose-bom:2026.02.01"))
     implementation("androidx.activity:activity-compose:1.8.2")
     implementation("androidx.core:core-ktx:1.16.0")

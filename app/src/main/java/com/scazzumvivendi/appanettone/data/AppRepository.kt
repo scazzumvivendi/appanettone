@@ -1,7 +1,7 @@
-package it.appanettone.data
+package com.scazzumvivendi.appanettone.data
 
 import androidx.room.withTransaction
-import it.appanettone.timer.ReminderScheduler
+import com.scazzumvivendi.appanettone.timer.ReminderScheduler
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock

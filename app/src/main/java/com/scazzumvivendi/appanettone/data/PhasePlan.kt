@@ -1,4 +1,4 @@
-package it.appanettone.data
+package com.scazzumvivendi.appanettone.data
 
 internal fun Batch.applyTemplates(
     previousTemplates: List<PhaseTemplate>,

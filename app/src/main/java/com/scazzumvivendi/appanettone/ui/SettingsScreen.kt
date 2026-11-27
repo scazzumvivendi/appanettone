@@ -1,4 +1,4 @@
-package it.appanettone.ui
+package com.scazzumvivendi.appanettone.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,11 +24,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import it.appanettone.data.PhaseTemplate
+import com.scazzumvivendi.appanettone.SupporterState
+import com.scazzumvivendi.appanettone.data.PhaseTemplate
 
 @Composable
 fun SettingsScreen(
     templates: List<PhaseTemplate>,
+    supporter: SupporterState,
+    onBecomeSupporter: () -> Unit,
+    onRefreshSupporter: () -> Unit,
     reminders: Boolean,
     notificationsAllowed: Boolean,
     exactAlarmsAllowed: Boolean,
@@ -87,6 +91,34 @@ fun SettingsScreen(
                     } else if (reminders && !exactAlarmsAllowed) {
                         Text("Per un avviso puntuale, consenti gli allarmi esatti nelle impostazioni Android.")
                         OutlinedButton(onClick = onExactAlarmPermission) { Text("Consenti allarmi esatti") }
+                    }
+                }
+            }
+        }
+        item {
+            SoftCard {
+                Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Text(
+                        if (supporter.owned) "Sei supporter" else "Diventa supporter",
+                        style = MaterialTheme.typography.titleLarge,
+                    )
+                    Text("Sostieni lo sviluppo di Appanettone con un acquisto una tantum. L’unico vantaggio è il logo completamente a colori.")
+                    val price = supporter.price
+                    when {
+                        supporter.owned -> Text("Grazie per il tuo sostegno!")
+                        supporter.pending -> Text("Pagamento in attesa di conferma da Google Play.")
+                        supporter.purchasing -> Text("Acquisto in corso…")
+                        supporter.loading -> Text("Caricamento del prezzo…")
+                        price != null -> OutlinedButton(onClick = onBecomeSupporter) {
+                            Text("Offrimi un caffè · $price")
+                        }
+                        else -> {
+                            Text("Acquisto al momento non disponibile su Google Play.")
+                            OutlinedButton(onClick = onRefreshSupporter) { Text("Riprova") }
+                        }
+                    }
+                    if (supporter.purchaseFailed && !supporter.owned && !supporter.pending) {
+                        Text("Impossibile completare l’acquisto. Riprova.")
                     }
                 }
             }

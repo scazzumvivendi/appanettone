@@ -1,4 +1,4 @@
-package it.appanettone.data
+package com.scazzumvivendi.appanettone.data
 
 import androidx.room.Dao
 import androidx.room.Database

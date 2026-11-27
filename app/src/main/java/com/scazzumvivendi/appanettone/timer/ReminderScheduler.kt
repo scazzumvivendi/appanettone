@@ -1,4 +1,4 @@
-package it.appanettone.timer
+package com.scazzumvivendi.appanettone.timer
 
 import android.app.AlarmManager
 import android.app.NotificationChannel
@@ -10,10 +10,10 @@ import android.net.Uri
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import it.appanettone.MainActivity
-import it.appanettone.R
-import it.appanettone.data.Phase
-import it.appanettone.data.Reminder
+import com.scazzumvivendi.appanettone.MainActivity
+import com.scazzumvivendi.appanettone.R
+import com.scazzumvivendi.appanettone.data.Phase
+import com.scazzumvivendi.appanettone.data.Reminder
 
 class ReminderScheduler(private val context: Context) {
     private val alarms = context.getSystemService(AlarmManager::class.java)
@@ -101,8 +101,8 @@ class ReminderScheduler(private val context: Context) {
 
     companion object {
         const val LEAD_TIME_MS = 5 * 60_000L
-        const val ACTION_TRANSITION = "it.appanettone.TRANSITION"
-        const val ACTION_REMINDER = "it.appanettone.REMINDER"
+        const val ACTION_TRANSITION = "com.scazzumvivendi.appanettone.TRANSITION"
+        const val ACTION_REMINDER = "com.scazzumvivendi.appanettone.REMINDER"
         const val EXTRA_PHASE_ID = "phaseId"
         const val EXTRA_BATCH_ID = "batchId"
         private const val CHANNEL_ID = "lievitazione"

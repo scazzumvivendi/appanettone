@@ -1,4 +1,4 @@
-package it.appanettone.data
+package com.scazzumvivendi.appanettone.data
 
 // Keep existing entries in order because their indexes are stored in Room.
 internal enum class PhaseColor {
