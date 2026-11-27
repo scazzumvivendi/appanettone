@@ -1,2 +1,2 @@
 <inset xmlns:android="http://schemas.android.com/apk/res/android"
-    android:drawable="@drawable/panettone" android:inset="18%" />
+    android:drawable="@drawable/panettone_launcher" android:inset="18%" />

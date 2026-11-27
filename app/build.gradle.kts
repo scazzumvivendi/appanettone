@@ -12,7 +12,7 @@ android {
         applicationId = "com.scazzumvivendi.appanettone"
         minSdk = 26
         targetSdk = 37
-        versionCode = 1
+        versionCode = 3
         versionName = "0.0.1"
     }
 

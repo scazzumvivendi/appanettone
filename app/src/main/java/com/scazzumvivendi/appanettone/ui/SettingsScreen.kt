@@ -96,12 +96,14 @@ fun SettingsScreen(
             }
         }
         item {
+            Text(
+                if (supporter.owned) "Sei supporter" else "Diventa supporter",
+                style = MaterialTheme.typography.titleLarge,
+            )
+        }
+        item {
             SoftCard {
                 Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                    Text(
-                        if (supporter.owned) "Sei supporter" else "Diventa supporter",
-                        style = MaterialTheme.typography.titleLarge,
-                    )
                     Text("Sostieni lo sviluppo di Appanettone con un acquisto una tantum. L’unico vantaggio è il logo completamente a colori.")
                     val price = supporter.price
                     when {

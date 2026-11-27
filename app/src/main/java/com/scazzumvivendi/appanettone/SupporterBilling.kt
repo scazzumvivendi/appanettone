@@ -2,6 +2,7 @@ package com.scazzumvivendi.appanettone
 
 import android.app.Activity
 import android.content.Context
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -77,6 +78,7 @@ class SupporterBilling(private val activity: Activity) {
                 if (result.responseCode == BillingResponseCode.OK) {
                     queryPlay()
                 } else {
+                    Log.w(TAG, "Play Billing setup failed: response=${result.responseCode}")
                     state = state.copy(loading = false)
                 }
             }
@@ -112,8 +114,15 @@ class SupporterBilling(private val activity: Activity) {
                 if (catalogRequest == catalogQuery) {
                     product = details.productDetailsList.firstOrNull { it.productId == PRODUCT_ID }
                         .takeIf { result.responseCode == BillingResponseCode.OK }
-                    offer = product?.oneTimePurchaseOfferDetailsList?.firstOrNull {
+                    val matchingOffer = product?.oneTimePurchaseOfferDetailsList?.firstOrNull {
                         it.purchaseOptionId == PURCHASE_OPTION_ID && it.offerId == null && it.offerToken != null
+                    }
+                    offer = matchingOffer ?: product?.oneTimePurchaseOfferDetails?.takeIf {
+                        it.offerId == null && (it.purchaseOptionId == null || it.purchaseOptionId == PURCHASE_OPTION_ID)
+                    }
+                    if (offer == null) {
+                        val status = details.unfetchedProductList.firstOrNull { it.productId == PRODUCT_ID }?.statusCode
+                        Log.w(TAG, "Supporter product unavailable: response=${result.responseCode}, unfetchedStatus=$status, productFound=${product != null}")
                     }
                     state = state.copy(loading = false, price = offer?.formattedPrice)
                 }
@@ -124,12 +133,10 @@ class SupporterBilling(private val activity: Activity) {
     fun purchase() {
         if (state.owned || state.pending || state.purchasing || state.price == null) return
         val details = product ?: return
-        val offerToken = offer?.offerToken ?: return
-        val item = BillingFlowParams.ProductDetailsParams.newBuilder()
-            .setProductDetails(details)
-            .setOfferToken(offerToken)
-            .build()
-        val params = BillingFlowParams.newBuilder().setProductDetailsParamsList(listOf(item)).build()
+        val selectedOffer = offer ?: return
+        val item = BillingFlowParams.ProductDetailsParams.newBuilder().setProductDetails(details)
+        selectedOffer.offerToken?.let(item::setOfferToken)
+        val params = BillingFlowParams.newBuilder().setProductDetailsParamsList(listOf(item.build())).build()
         state = state.copy(purchasing = true, purchaseFailed = false)
         val result = client.launchBillingFlow(activity, params)
         if (result.responseCode != BillingResponseCode.OK) {
@@ -171,6 +178,7 @@ class SupporterBilling(private val activity: Activity) {
     }
 
     private companion object {
+        const val TAG = "SupporterBilling"
         const val PRODUCT_ID = "supporter_badge"
         const val PURCHASE_OPTION_ID = "acquisto-badge"
         val NON_ERROR_PURCHASE_RESPONSES = setOf(
